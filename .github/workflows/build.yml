@@ -1,1 +1,25 @@
-template
+
+name: "Build Dark Ages kernel on darky."              # Description of the workflow.
+on:
+  push:
+    branches: android-10.0                                   # Branch to build.
+  workflow_dispatch:                                  # Allow to manually trigger workflow.
+jobs:
+  build:
+    name: "Build Dark Ages kernel"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout kernel source"                  # Clone the kernel source.
+      uses: actions/checkout@v2
+
+
+
+
+
+    - name: "Android kernel build"                    # Build kernel with lemniskett/android-kernel-actions.
+      uses: lemniskett/android-kernel-actions@master
+      with:
+        arch: arm64                                   # Specify arch
+        compiler: gcc/9                               # Specify toolchain to use
+        defconfig: dandelion_defconfig                    # Specify defconfig to use
+        image: Image.gz-dtb
